@@ -1,0 +1,1 @@
+/home/morgan/.config/nvim/init.lua
