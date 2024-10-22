@@ -29,7 +29,7 @@ vim.opt["shiftwidth"] = 2
 
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
-vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
+vim.keymap.set("n", "<Esc><Esc>", "<cmd>nohlsearch<CR>")
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
@@ -37,7 +37,10 @@ vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 --
 -- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
 -- or just use <C-\><C-n> to exit terminal mode
-vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
+
+-- TODO: none of these work on alacritty
+--vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
+--vim.keymap.set("t", "jj", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 
 -- Disable arrow keys in normal mode
 vim.keymap.set("n", "<left>", '<cmd>echo "Use h to move!!"<CR>')
@@ -226,6 +229,7 @@ require("lazy").setup({
 			local servers = {
 				clangd = {},
 				pyright = {},
+				black = {},
 				rust_analyzer = {},
 				hls = {},
 				lua_ls = {
@@ -251,7 +255,7 @@ require("lazy").setup({
 			local ensure_installed = vim.tbl_keys(servers or {})
 			vim.list_extend(ensure_installed, {
 				"stylua", -- Used to format Lua code
-				--"black", -- Used to format Python code
+				"black", -- Used to format Python code
 			})
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
@@ -402,6 +406,23 @@ require("lazy").setup({
 		config = true,
 		-- use opts = {} for passing setup options
 		-- this is equivalent to setup({}) function
+	},
+	{ --Leetcode plugin
+		"kawre/leetcode.nvim",
+		build = ":TSUpdate html",
+		dependencies = {
+			"nvim-telescope/telescope.nvim",
+			"nvim-lua/plenary.nvim", -- required by telescope
+			"MunifTanjim/nui.nvim",
+
+			-- optional
+			"nvim-treesitter/nvim-treesitter",
+			"rcarriga/nvim-notify",
+			"nvim-tree/nvim-web-devicons",
+		},
+		opts = {
+			-- configuration goes here
+		},
 	},
 
 	-- NOTE: Next step on your Neovim journey: Add/Configure additional plugins for Kickstart
