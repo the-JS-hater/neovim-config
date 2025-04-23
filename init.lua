@@ -232,6 +232,7 @@ require("lazy").setup({
 				black = {},
 				rust_analyzer = {},
 				hls = {},
+				ols = {},
 				lua_ls = {
 					settings = {
 						Lua = {
@@ -372,6 +373,7 @@ require("lazy").setup({
 				"vimdoc",
 				"python",
 				"haskell",
+				"odin",
 			},
 			-- Autoinstall languages that are not installed
 			auto_install = true,
